@@ -14,14 +14,16 @@ dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(cors());
+app.use(cors({
+    origin:"http://localhost:5173"
+}));
 app.use(cookieParser());
 
 
-app.use("api/v1/png",pngRoute);
-app.use("api/v1/jpg",jpgRoute);
-app.use("api/v1/pdf",pdfRoute);
-app.use("api/v1/heic",heicRoute);
+app.use("/api/v1/png",pngRoute);
+app.use("/api/v1/jpg",jpgRoute);
+app.use("/api/v1/pdf",pdfRoute);
+app.use("/api/v1/heic",heicRoute);
 
 
 
