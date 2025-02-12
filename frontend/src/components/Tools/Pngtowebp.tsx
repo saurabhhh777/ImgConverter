@@ -7,7 +7,7 @@ interface ConversionState {
   convertedUrl: string | null;
 }
 
-function App() {
+function Pngtowebp() {
   const [state, setState] = useState<ConversionState>({
     isLoading: false,
     error: null,
@@ -132,7 +132,7 @@ function App() {
             download="converted.jpg"
             className="mt-3 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
           >
-            Download JPEG
+            Download Webp
           </a>
           <button
             className="mt-2 px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
@@ -149,4 +149,4 @@ function App() {
   );
 }
 
-export default App;
+export default Pngtowebp;

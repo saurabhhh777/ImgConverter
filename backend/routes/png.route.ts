@@ -1,12 +1,12 @@
 import express from "express";
 const router = express.Router();
-import { pngtojpg,pngtowebp,testapi } from "../controllers/png.controller";
+import { PngToJpg,PngToWebp,TestApi } from "../controllers/png.controller";
 
 
 
-router.route("/pngtojpg").post(pngtojpg);
-router.route("/pngs").get(testapi);
-router.route("/pngtowebp").post(pngtowebp);
+router.route("/pngtojpg").post(PngToJpg);
+router.route("/pngs").get(TestApi);
+router.route("/pngtowebp").post(PngToWebp);
 
 
 export default router;

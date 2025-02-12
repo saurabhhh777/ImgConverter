@@ -7,7 +7,7 @@ interface ConversionState {
   convertedUrl: string | null;
 }
 
-function App() {
+function Jpgtopng() {
   const [state, setState] = useState<ConversionState>({
     isLoading: false,
     error: null,
@@ -16,7 +16,6 @@ function App() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Cleanup object URLs
   useEffect(() => {
     return () => {
       if (state.convertedUrl) {
@@ -32,10 +31,10 @@ function App() {
 
     try {
       const formData = new FormData();
-      formData.append("image", file); // Changed to match server's expected field name
+      formData.append("image", file);
 
       const response = await axios.post(
-        "http://localhost:3000/api/v1/jpg/jpgtopng", // Updated endpoint to match server
+        "http://localhost:3000/api/v1/jpg/jpgtopng",
         formData,
         {
           responseType: "blob",
@@ -54,11 +53,9 @@ function App() {
     } catch (error) {
       console.error("Conversion error:", error);
       let errorMessage = "⚠️ Failed to convert file. Please try again.";
-      
       if (axios.isAxiosError(error)) {
-        errorMessage = error.response?.data?.error || errorMessage;
+        errorMessage = error.response?.data?.error || "⚠️ Server error. Please try later.";
       }
-
       setState({
         isLoading: false,
         error: errorMessage,
@@ -71,10 +68,10 @@ function App() {
     const file = e.target.files?.[0];
     if (file) {
       // Validate file type
-      if (!file.type.includes("png")) {
+      if (file.type !== "image/jpeg") {
         setState({
           isLoading: false,
-          error: "⚠️ Only PNG files are allowed",
+          error: "⚠️ Only JPEG files are allowed",
           convertedUrl: null,
         });
         return;
@@ -86,10 +83,9 @@ function App() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-semibold text-gray-800 mb-4">
-        JPEG to png Converter
+        JPEG to PNG Converter
       </h1>
 
-      {/* File Input */}
       <div
         className="w-full max-w-md p-6 border-2 border-dashed border-gray-400 bg-white rounded-lg text-center cursor-pointer hover:border-blue-500"
         onClick={() => fileInputRef.current?.click()}
@@ -102,10 +98,9 @@ function App() {
           disabled={state.isLoading}
           className="hidden"
         />
-        <p className="text-gray-600">Click to select PNG file</p>
+        <p className="text-gray-600">Click to select a JPEG file</p>
       </div>
 
-      {/* Loading Indicator */}
       {state.isLoading && (
         <div className="mt-4 flex items-center space-x-2">
           <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-blue-500"></div>
@@ -113,26 +108,24 @@ function App() {
         </div>
       )}
 
-      {/* Error Message */}
       {state.error && (
         <div className="mt-4 text-red-600 font-medium">{state.error}</div>
       )}
 
-      {/* Converted Image & Download */}
       {state.convertedUrl && (
         <div className="mt-6 bg-white p-4 rounded-lg shadow-lg flex flex-col items-center">
           <h2 className="text-lg font-semibold text-gray-700">Converted Image</h2>
           <img
             src={state.convertedUrl}
-            alt="Converted JPEG"
+            alt="Converted PNG"
             className="mt-2 w-60 h-auto rounded-lg shadow"
           />
           <a
             href={state.convertedUrl}
-            download="converted.jpg"
+            download="converted.png"
             className="mt-3 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
           >
-            Download JPEG
+            Download PNG
           </a>
           <button
             className="mt-2 px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
@@ -149,4 +142,4 @@ function App() {
   );
 }
 
-export default App;
+export default Jpgtopng;

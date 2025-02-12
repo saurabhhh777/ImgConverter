@@ -7,7 +7,7 @@ interface ConversionState {
   convertedUrl: string | null;
 }
 
-function App() {
+function Pngtojpg() {
   const [state, setState] = useState<ConversionState>({
     isLoading: false,
     error: null,
@@ -149,4 +149,4 @@ function App() {
   );
 }
 
-export default App;
+export default Pngtojpg;

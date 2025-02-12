@@ -22,9 +22,12 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "heic-convert": "^2.1.0",
+    "imagemin": "^9.0.0",
     "multer": "^1.4.5-lts.1",
     "sharp": "^0.33.5",
-    "ts-node": "^10.9.2"
+    "stream": "^0.0.3",
+    "ts-node": "^10.9.2",
+    "webp-converter": "^2.3.3"
   },
   "devDependencies": {
     "@types/heic-convert": "^2.1.0",
