@@ -1,63 +1,31 @@
 import { Request, Response } from 'express';
-import multer from 'multer';
+import multer from 'multer'
 import sharp from 'sharp';
 
 // Configure Multer storage
 const storage = multer.memoryStorage();
 
-// File filter to allow only JPEG files
-const jpegFileFilter = (
+// Reusable file filter middleware for PNG files
+const pngFileFilter = (
   req: Request,
   file: Express.Multer.File,
   cb: multer.FileFilterCallback
 ) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg') {
+  if (file.mimetype === 'image/png') {
     cb(null, true);
   } else {
-    cb(new Error('Only JPEG files are allowed!'));
+    cb(new Error('Only PNG files are allowed!'));
   }
 };
 
 // Configure Multer upload middleware
 const upload = multer({
   storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
-  fileFilter: jpegFileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB limit
+  },
+  fileFilter: pngFileFilter,
 }).single('image');
-
-// Controller for JPEG to PNG conversion
-export const jpgtopng = (req: Request, res: Response): void => {
-  upload(req, res, async (err) => {
-    if (err) {
-      console.error('Multer error:', err);
-      res.status(400).json({ message: err.message, success: false });
-      return;
-    }
-
-    if (!req.file) {
-      console.log('No file uploaded');
-      res.status(400).json({ message: 'No file uploaded', success: false });
-      return;
-    }
-
-    try {
-      console.log('File received:', req.file.originalname);
-
-      const pngBuffer = await sharp(req.file.buffer).png({ quality: 90 }).toBuffer();
-
-      res.set({
-        'Content-Type': 'image/png',
-        'Content-Disposition': 'attachment; filename="converted.png"',
-      });
-
-      res.send(pngBuffer);
-    } catch (error) {
-      console.error('Error converting image:', error);
-      res.status(500).json({ message: 'Server error, please try again later', success: false });
-    }
-  });
-};
-
 
 // Convert PNG to JPG
 export const PngToJpg = (req: Request, res: Response) => {

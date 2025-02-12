@@ -1,9 +1,9 @@
 import express from "express";
 const router = express.Router();
-import {jpgtopng,jpgtopdf,jpgtowebp} from "../controllers/jpg.controller";
+import {jpgToPng,jpgtopdf,jpgtowebp} from "../controllers/jpg.controller";
 
 
-router.route("/jpgtopng").post(jpgtopng);
+router.route("/jpgtopng").post(jpgToPng);
 router.route("/jpgtopdf").post(jpgtopdf);
 router.route("/jpgtowebp").post(jpgtowebp);
 

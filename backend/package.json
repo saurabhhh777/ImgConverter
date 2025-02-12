@@ -2,10 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "dev2": "tsc -b && node ./dist/index.js",
-    "dev": "ts-node ./index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+"scripts": {
+  "dev": "nodemon --watch src --exec \"tsc && node ./dist/index.js\"",
+  "test": "echo \"Error: no test specified\" && exit 1"
+
   },
   "keywords": [],
   "author": "",
@@ -32,6 +32,8 @@
   "devDependencies": {
     "@types/heic-convert": "^2.1.0",
     "@types/node": "^22.13.0",
+    "nodemon": "^3.1.9",
+    "ts-node-dev": "^2.0.0",
     "types": "^0.1.1",
     "typescript": "^5.7.3"
   }
