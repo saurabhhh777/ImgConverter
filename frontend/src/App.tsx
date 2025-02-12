@@ -13,6 +13,7 @@ import About from './components/pages/About.tsx';
 import Heictojpg from './components/Tools/Heictojpg.tsx';
 import Heictopng from './components/Tools/Heictopng.tsx';
 import Heictowebp from './components/Tools/Heictowebp.tsx';
+import Jpgtopdf from './components/Tools/Jpgtopdf.tsx';
 
 
 
@@ -24,6 +25,7 @@ const App = () => {
       <Route path="/png-to-webp"element={<Pngtowebp/>}/>
       <Route path="/jpeg-to-webp" element={<Jpgtowebp/>}/>
       <Route path="/jpeg-to-png" element={<Jpgtopng/>}/>
+      <Route path="/jpeg-to-pdf" element={<Jpgtopdf/>}/>
       <Route path="/webp-to-png" element={<Webtopng/>}/>
       <Route path="/webp-to-jpeg" element={<Webtojpg/>}/>
       <Route path="/heic-to-jpeg" element={<Heictojpg/>}/>
