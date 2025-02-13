@@ -7,7 +7,7 @@ interface ConversionState {
   convertedUrl: string | null;
 }
 
-function Heictowebp() {
+function Heictopng() {
   const [state, setState] = useState<ConversionState>({
     isLoading: false,
     error: null,
@@ -32,10 +32,10 @@ function Heictowebp() {
 
     try {
       const formData = new FormData();
-      formData.append("image", file); // Changed to match server's expected field name
+      formData.append("image", file);
 
       const response = await axios.post(
-        "http://localhost:3000/api/v1/heic/heictowebp", // Updated endpoint to match server
+        "http://localhost:3000/api/v1/heic/heictowebp", // Ensure the API endpoint is correct
         formData,
         {
           responseType: "blob",
@@ -57,6 +57,8 @@ function Heictowebp() {
       
       if (axios.isAxiosError(error)) {
         errorMessage = error.response?.data?.error || errorMessage;
+      } else if (error instanceof Error) {
+        errorMessage = error.message || errorMessage;
       }
 
       setState({
@@ -70,15 +72,22 @@ function Heictowebp() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Validate file type
-      if (!file.type.includes("png")) {
+      const fileExtension = file.name.split(".").pop()?.toLowerCase();
+      const mimeType = file.type;
+
+      // Check for HEIC/HEIF files
+      if (
+        fileExtension && !["heic", "heif"].includes(fileExtension) &&
+        !["image/heic", "image/heif"].includes(mimeType)
+      ) {
         setState({
           isLoading: false,
-          error: "⚠️ Only PNG files are allowed",
+          error: "⚠️ Only HEIC/HEIF files are allowed",
           convertedUrl: null,
         });
         return;
       }
+
       handleConvert(file);
     }
   };
@@ -86,23 +95,22 @@ function Heictowebp() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-semibold text-gray-800 mb-4">
-        HEIC to Webp Converter
+        HEIC to WEBP Converter
       </h1>
 
-      {/* File Input */}
       <div
         className="w-full max-w-md p-6 border-2 border-dashed border-gray-400 bg-white rounded-lg text-center cursor-pointer hover:border-blue-500"
         onClick={() => fileInputRef.current?.click()}
       >
         <input
           type="file"
-          accept="image/heic"
+          accept=".heic,.heif"
           onChange={handleFileChange}
           ref={fileInputRef}
           disabled={state.isLoading}
           className="hidden"
         />
-        <p className="text-gray-600">Click to select PNG file</p>
+        <p className="text-gray-600">Click to select HEIC/HEIF file</p>
       </div>
 
       {/* Loading Indicator */}
@@ -124,15 +132,15 @@ function Heictowebp() {
           <h2 className="text-lg font-semibold text-gray-700">Converted Image</h2>
           <img
             src={state.convertedUrl}
-            alt="Converted JPEG"
+            alt="Converted WEBP"
             className="mt-2 w-60 h-auto rounded-lg shadow"
           />
           <a
             href={state.convertedUrl}
-            download="converted.jpg"
+            download="converted.webp"
             className="mt-3 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
           >
-            Download JPEG
+            Download WEBP
           </a>
           <button
             className="mt-2 px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
@@ -149,4 +157,4 @@ function Heictowebp() {
   );
 }
 
-export default Heictowebp;
+export default Heictopng;
