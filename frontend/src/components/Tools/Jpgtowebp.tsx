@@ -71,10 +71,10 @@ function Jpgtowebp() {
     const file = e.target.files?.[0];
     if (file) {
       // Validate file type
-      if (!file.type.includes("png")) {
+      if (!file.type.includes("jpeg")) {
         setState({
           isLoading: false,
-          error: "⚠️ Only PNG files are allowed",
+          error: "⚠️ Only JPEG files are allowed",
           convertedUrl: null,
         });
         return;
@@ -129,7 +129,7 @@ function Jpgtowebp() {
           />
           <a
             href={state.convertedUrl}
-            download="converted.jpg"
+            download="converted.webp"
             className="mt-3 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
           >
             Download Webp
