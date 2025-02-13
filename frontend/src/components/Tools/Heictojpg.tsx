@@ -32,10 +32,10 @@ function Heictojpg() {
 
     try {
       const formData = new FormData();
-      formData.append("image", file); // Changed to match server's expected field name
+      formData.append("image", file);
 
       const response = await axios.post(
-        "http://localhost:3000/api/v1/heic/heictojpg", // Updated endpoint to match server
+        "http://localhost:3000/api/v1/heic/heictojpg",
         formData,
         {
           responseType: "blob",
@@ -70,15 +70,21 @@ function Heictojpg() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Validate file type
-      if (!file.type.includes("png")) {
+      const fileExtension = file.name.split(".").pop()?.toLowerCase();
+      const mimeType = file.type;
+
+      if (
+        fileExtension && !["heic", "heif"].includes(fileExtension) &&
+        !["image/heic", "image/heif"].includes(mimeType)
+      ) {
         setState({
           isLoading: false,
-          error: "⚠️ Only PNG files are allowed",
+          error: "⚠️ Only HEIC files are allowed",
           convertedUrl: null,
         });
         return;
       }
+
       handleConvert(file);
     }
   };
@@ -89,23 +95,21 @@ function Heictojpg() {
         HEIC to JPEG Converter
       </h1>
 
-      {/* File Input */}
       <div
         className="w-full max-w-md p-6 border-2 border-dashed border-gray-400 bg-white rounded-lg text-center cursor-pointer hover:border-blue-500"
         onClick={() => fileInputRef.current?.click()}
       >
         <input
           type="file"
-          accept="image/heic"
+          accept=".heic,.heif"
           onChange={handleFileChange}
           ref={fileInputRef}
           disabled={state.isLoading}
           className="hidden"
         />
-        <p className="text-gray-600">Click to select PNG file</p>
+        <p className="text-gray-600">Click to select HEIC file</p>
       </div>
 
-      {/* Loading Indicator */}
       {state.isLoading && (
         <div className="mt-4 flex items-center space-x-2">
           <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-blue-500"></div>
@@ -113,15 +117,15 @@ function Heictojpg() {
         </div>
       )}
 
-      {/* Error Message */}
       {state.error && (
         <div className="mt-4 text-red-600 font-medium">{state.error}</div>
       )}
 
-      {/* Converted Image & Download */}
       {state.convertedUrl && (
         <div className="mt-6 bg-white p-4 rounded-lg shadow-lg flex flex-col items-center">
-          <h2 className="text-lg font-semibold text-gray-700">Converted Image</h2>
+          <h2 className="text-lg font-semibold text-gray-700">
+            Converted Image
+          </h2>
           <img
             src={state.convertedUrl}
             alt="Converted JPEG"
