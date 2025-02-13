@@ -4,7 +4,7 @@ import { heictojpg,heictopng,heictowebp } from "../controllers/heic.controller";
 
 
 router.route("/heictopng").post(heictopng);
-router.route("/heicjpg").post(heictojpg);
+router.route("/heictojpg").post(heictojpg);
 router.route("/heictowebp").post(heictowebp);
 
 
