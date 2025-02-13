@@ -28,6 +28,8 @@ const upload = multer({
   fileFilter: jpgFileFilter,
 }).single('image');
 
+
+
 // Convert JPG to PNG
 export const jpgToPng = (req: Request, res: Response) => {
   upload(req, res, async (err) => {
@@ -74,7 +76,7 @@ export const jpgToPng = (req: Request, res: Response) => {
 
 
 
-
+//convert the image from jpg to pdf
 export const jpgtopdf = (req: Request, res: Response) => {
   upload(req, res, async (err) => {
     try {
@@ -128,6 +130,7 @@ export const jpgtopdf = (req: Request, res: Response) => {
 };
 
 
+//this will convert the image from jpg to webp
 export const jpgtowebp = (req: Request, res: Response) => {
   upload(req, res, async (err) => {
     try {
