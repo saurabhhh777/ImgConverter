@@ -1,11 +1,11 @@
 
 const Contact = () => {
   return (
-    <div className="h-screen w-screen flex flex-col justify-center items-center">
+    <div className="h-screen w-screen flex flex-col justify-center items-center text-[#deded5]">
       <h1 className="h-[10%] justify-center items-center text-4xl font-bold">
         Contact US
       </h1>
-      <div className="h-[80%] w-[80%] bg-[#E3EFFF] flex flex-col rounded-2xl p-24">
+      <div className="h-[80%] w-[80%] bg-[#1b1b1f] flex flex-col rounded-2xl p-24">
         <pre className="font-serif">
           We'd love to hear from you! Whether you have questions, feedback, or
           need assistance with our
