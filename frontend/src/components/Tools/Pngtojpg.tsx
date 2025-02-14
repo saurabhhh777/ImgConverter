@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { ImagePlus } from "lucide-react";
 
 interface ConversionState {
   isLoading: boolean;
@@ -54,7 +55,7 @@ function Pngtojpg() {
     } catch (error) {
       console.error("Conversion error:", error);
       let errorMessage = "⚠️ Failed to convert file. Please try again.";
-      
+
       if (axios.isAxiosError(error)) {
         errorMessage = error.response?.data?.error || errorMessage;
       }
@@ -84,14 +85,12 @@ function Pngtojpg() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-semibold text-gray-800 mb-4">
-        PNG to JPEG Converter
-      </h1>
+    <div className="box-border  flex flex-col items-center justify-center min-h-screen bg-[#1b1b1f] text-white p-6">
+      <h1 className="text-3xl font-semibold mb-11">PNG to JPEG Converter</h1>
 
       {/* File Input */}
       <div
-        className="w-full max-w-md p-6 border-2 border-dashed border-gray-400 bg-white rounded-lg text-center cursor-pointer hover:border-blue-500"
+        className="border-box h-[250px] w-[600px] p-6 border-2 border-dashed border-gray-400 bg-[#212433] rounded-lg text-center cursor-pointer hover:border-blue-500"
         onClick={() => fileInputRef.current?.click()}
       >
         <input
@@ -102,7 +101,12 @@ function Pngtojpg() {
           disabled={state.isLoading}
           className="hidden"
         />
-        <p className="text-gray-600">Click to select PNG file</p>
+        <div className="text-white h-full justify-center items-center text-center flex flex-col">
+          <div className="flex flex-col items-center">
+            <ImagePlus size={"90"}/>
+            <span className="text-2xl mt-2">Click to select PNG file</span>
+          </div>
+        </div>
       </div>
 
       {/* Loading Indicator */}
@@ -121,7 +125,9 @@ function Pngtojpg() {
       {/* Converted Image & Download */}
       {state.convertedUrl && (
         <div className="mt-6 bg-white p-4 rounded-lg shadow-lg flex flex-col items-center">
-          <h2 className="text-lg font-semibold text-gray-700">Converted Image</h2>
+          <h2 className="text-lg font-semibold text-gray-700">
+            Converted Image
+          </h2>
           <img
             src={state.convertedUrl}
             alt="Converted JPEG"
