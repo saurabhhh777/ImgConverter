@@ -35,7 +35,7 @@ function Pdftoword() {
       formData.append("pdf", file); // Make sure this matches your backend field name (upload.single("pdf"))
 
       const response = await axios.post(
-        "http://localhost:3000/api/v1/pdf/pdftoword",
+        `${import.meta.env.VITE_BASE_URL}/api/v1/pdf/pdftoword`,
         formData,
         {
           headers: {

@@ -34,7 +34,7 @@ function Jpgtopng() {
       formData.append("image", file);
 
       const response = await axios.post(
-        "http://localhost:3000/api/v1/jpg/jpgtopng",
+        `${import.meta.env.VITE_BASE_URL}/api/v1/jpg/jpgtopng`,
         formData,
         {
           responseType: "blob",

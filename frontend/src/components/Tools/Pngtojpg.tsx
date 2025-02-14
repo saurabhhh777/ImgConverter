@@ -36,7 +36,7 @@ function Pngtojpg() {
       formData.append("image", file); // Changed to match server's expected field name
 
       const response = await axios.post(
-        "http://localhost:3000/api/v1/png/pngtojpg", // Updated endpoint to match server
+        `${import.meta.env.VITE_BASE_URL}/api/v1/png/pngtojpg`, // Updated endpoint to match server
         formData,
         {
           responseType: "blob",

@@ -35,7 +35,7 @@ function Heictojpg() {
       formData.append("image", file);
 
       const response = await axios.post(
-        "http://localhost:3000/api/v1/heic/heictojpg",
+        `${import.meta.env.VITE_BASE_URL}/api/v1/heic/heictojpg`,
         formData,
         {
           responseType: "blob",

@@ -6,22 +6,81 @@ import {
   Shield,
   Bird,
 } from "lucide-react";
-import { useRef } from "react";
-// import {gsap} from "gsap";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
 
 const Main = () => {
+  const iconRefs = useRef<HTMLDivElement[]>([]);
+  const titleRefs = useRef<HTMLHeadingElement[]>([]);
+  const descriptionRefs = useRef<HTMLSpanElement[]>([]);
 
-  const iconRef = useRef(null);
-  const titelRef = useRef(null);
-  const descripRef = useRef(null);
+  useEffect(() => {
+    // Animate icons
+    iconRefs.current.forEach((icon) => {
+      if (icon) {
+        gsap.fromTo(
+          icon,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: icon,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+    });
 
+    // Animate titles
+    titleRefs.current.forEach((title) => {
+      if (title) {
+        gsap.fromTo(
+          title,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: title,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+    });
 
-  // useEffect(()=>{ 
-    
-  
-  // });
-
+    // Animate descriptions
+    descriptionRefs.current.forEach((desc) => {
+      if (desc) {
+        gsap.fromTo(
+          desc,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: desc,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+    });
+  }, []);
 
   return (
     <div className="h-full w-full bg-gray-900 text-white p-8">
@@ -79,11 +138,25 @@ const Main = () => {
           },
         ].map(({ Icon, title, description }, index) => (
           <div key={index} className="p-8 flex-1 min-w-[250px]">
-            <Icon size={80} className="mx-auto mb-4" ref={iconRef}/>
-            <h2 className="font-poppin font-semibold text-lg mb-2" ref={titelRef}>{title}</h2>
+            <div
+              className="mb-4"
+              ref={(el) => (iconRefs.current[index] = el!)}
+            >
+              <Icon size={80} className="mx-auto" />
+            </div>
+            <h2
+              className="font-poppin font-semibold text-lg mb-2"
+              ref={(el) => (titleRefs.current[index] = el!)}
+            >
+              {title}
+            </h2>
             <p className="text-sm leading-6">
               {description.map((line, i) => (
-                <span key={i} className="block" ref={descripRef}>
+                <span
+                  key={`${index}-${i}`}
+                  className="block"
+                  ref={(el) => (descriptionRefs.current[index * 10 + i] = el!)}
+                >
                   {line}
                 </span>
               ))}

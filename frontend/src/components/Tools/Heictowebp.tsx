@@ -35,7 +35,7 @@ function Heictopng() {
       formData.append("image", file);
 
       const response = await axios.post(
-        "http://localhost:3000/api/v1/heic/heictowebp", // Ensure the API endpoint is correct
+        `${import.meta.env.VITE_BASE_URL}/api/v1/heic/heictowebp`, // Ensure the API endpoint is correct
         formData,
         {
           responseType: "blob",
