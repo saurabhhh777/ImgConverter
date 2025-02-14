@@ -1,4 +1,7 @@
+import { Globe,Copyright} from "lucide-react";
+
 const Footer = () => {
+
   return (
     <div className="text-white box-border">
       <div className="flex flex-row justify-between m-20">
@@ -54,6 +57,14 @@ const Footer = () => {
             <h2 className="pb-2">Contact Us</h2>
             <h2 className="pb-2">Privacy Policy</h2>
           </div>
+        </div>
+      </div>
+      <div className="flex flex-row justify-between pl-5 pr-5 pb-10">
+        <h2 className="flex felx-row"><Copyright/> 2025 ImageConvert<span className="text-blue-300"> v.1.0.0</span>.All rights reserved.</h2>
+        <div className="flex flex-row">
+          <h2 className="pr-10 cursor-pointer">About Us</h2>
+          <h2 className="pr-10">Privacy Policy</h2>
+          <h2><Globe/></h2>
         </div>
       </div>
     </div>
