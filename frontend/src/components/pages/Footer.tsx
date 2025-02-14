@@ -2,7 +2,10 @@
 const Footer = () => {
   return (
     <div className="text-white">
-        Footer
+        <div>
+    
+
+        </div>
     </div>
   )
 }
