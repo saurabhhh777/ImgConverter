@@ -1,3 +1,4 @@
+// import React from "react";
 import Navbar from "../NavbarPage/Navbar.tsx";
 import Pngtojpg from "../Tools/Pngtojpg.tsx";
 import Footer from "./Footer.tsx";

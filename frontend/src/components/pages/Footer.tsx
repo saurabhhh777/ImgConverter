@@ -1,3 +1,4 @@
+// import React from "react";
 import { Globe,Copyright} from "lucide-react";
 
 const Footer = () => {
