@@ -1,4 +1,5 @@
-import express from "express";
+// import express from "express";
+import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -24,6 +25,13 @@ app.use("/api/v1/png",pngRoute);
 app.use("/api/v1/jpg",jpgRoute);
 app.use("/api/v1/pdf",pdfRoute);
 app.use("/api/v1/heic",heicRoute);
+
+app.get("/", (req: express.Request, res: express.Response):any=> {
+    return res.status(200).json({
+        message: "Backend is working",
+        success: false,
+    });
+});
 
 
 
