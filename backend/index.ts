@@ -16,7 +16,7 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors({
-    origin:"http://localhost:5173"
+    origin:`$${process.env.FRONTEND_URL}`
 }));
 app.use(cookieParser());
 
@@ -26,7 +26,7 @@ app.use("/api/v1/jpg",jpgRoute);
 app.use("/api/v1/pdf",pdfRoute);
 app.use("/api/v1/heic",heicRoute);
 
-app.get("/", (req: express.Request, res: express.Response):any=> {
+app.get("/", (_req:Request, res:Response):any=> {
     return res.status(200).json({
         message: "Backend is working",
         success: false,
